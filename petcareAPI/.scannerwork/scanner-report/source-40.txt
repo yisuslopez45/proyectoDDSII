@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: ./postgresql
+      dockerfile: Dockerfile
+    container_name: mi_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: gatitos
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: django_web
+    command: >
+              ./wait-for-it.sh 
+              sh -c "
+                python manage.py migrate && 
+                python manage.py shell < create_user.py && 
+                python manage.py runserver 0.0.0.0:8000
+              "
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - DEBUG=True
+      - DATABASE_URL=postgres://postgres:root@postgres:5432/postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+
+  sonarqube:
+    image: sonarqube:latest
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+
+volumes:
+  postgres_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:

@@ -1,0 +1,64 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+ENV/
+VENV/
+env.bak/
+venv.bak/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+db.sqlite3
+db.sqlite3-journal
+
+# If using SQLite, ignore database
+*.sqlite3
+
+# Local settings file
+/local_settings.py
+
+# Media files (uploads)
+media/
+
+# Static files (builds from collectstatic)
+staticfiles/
+static/
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Translations
+*.mo
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
