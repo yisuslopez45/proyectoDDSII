@@ -1,10 +1,10 @@
 # Use an official node runtime as a parent image
-FROM node:latest
+FROM node:18
 
 WORKDIR /app/
 
 # Install dependencies
-COPY package.json /app/
+COPY package.json package-lock.json /app/
 
 RUN npm install
 
@@ -13,4 +13,4 @@ COPY . /app/
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
