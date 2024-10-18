@@ -49,7 +49,7 @@ services:
       - "3000:3000"
     depends_on:
       - web
-    command: npm run start
+    command: npm run dev
 
   sonarqube:
     image: sonarqube:latest
