@@ -1,12 +1,12 @@
 # Use an official node runtime as a parent image
-FROM node:18
+FROM node:20
 
 WORKDIR /app/
 
 # Install dependencies
 COPY package.json package-lock.json /app/
 
-RUN npm install
+RUN npm install --include=dev
 
 # Add rest of the client code
 COPY . /app/
