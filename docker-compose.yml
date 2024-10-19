@@ -49,8 +49,8 @@ services:
       - "3000:3000"
     depends_on:
       - web
-    command: npm run dev
-
+    command: npm run dev -- --port 3000 --host
+    
   sonarqube:
     image: sonarqube:latest
     container_name: sonarqube
