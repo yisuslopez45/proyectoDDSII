@@ -15,7 +15,8 @@ class MascotaCRUDTests(TestCase):
             'especie': 'Perro',
             'raza': 'Golden Retriever',
             'edad': 1,
-            'descripcion': 'Un perro amigable y juguetón'
+            'descripcion': 'Un perro amigable y juguetón',
+            'estado_adopcion': False
         }
         self.mascota = Pet.objects.create(**self.mascota_data)
         self.mascota_url = reverse('pet-detail', args=[self.mascota.id])  # URL para el detalle de la mascota api/v1/pet/1
@@ -35,7 +36,7 @@ class MascotaCRUDTests(TestCase):
     # TEST SANTIAGO JIMENEZ
     def test_actualizar_mascota(self):
         """Prueba la actualización de una mascota existente"""
-        nueva_data = {'nombre': 'Rex', 'especie': 'Perro', 'raza': 'Pastor Alemán', 'edad':7}
+        nueva_data = {'nombre': 'Rex', 'especie': 'Perro', 'raza': 'Pastor Alemán', 'edad':7,'estado_adopcion':False}
         response = self.client.put(self.mascota_url, nueva_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.mascota.refresh_from_db()  # Actualiza la mascota desde la base de datos
@@ -47,3 +48,15 @@ class MascotaCRUDTests(TestCase):
         response = self.client.delete(self.mascota_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Pet.objects.count(), 0)  # No deberían quedar mascotas en la base de datos
+
+    def test_validar_mascota_no_adoptada(self):
+        """Prueba el estado de adopcion de un animal x"""
+        response = self.client.get(self.mascota_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.mascota.estado_adopcion, False)
+
+    def test_validar_mascota_adoptada(self):
+        """Prueba el estado de adopcion de un animal x"""
+        response = self.client.get(self.mascota_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.mascota.estado_adopcion, True)
