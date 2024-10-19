@@ -7,7 +7,10 @@ WORKDIR /app/
 COPY package.json package-lock.json /app/
 
 RUN npm install --include=dev
+<<<<<<< Updated upstream
 RUN npm install bootstrap
+=======
+>>>>>>> Stashed changes
 
 # Add rest of the client code
 COPY . /app/
