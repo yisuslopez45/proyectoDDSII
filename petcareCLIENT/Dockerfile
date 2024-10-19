@@ -8,6 +8,8 @@ COPY package.json package-lock.json /app/
 
 RUN npm install --include=dev
 
+RUN npm install bootstrap
+
 # Add rest of the client code
 COPY . /app/
 
