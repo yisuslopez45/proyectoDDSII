@@ -33,4 +33,17 @@ class MascotaCRUDTests(TestCase):
         self.assertEqual(len(response.data), 1)  # Solo una mascota en la base de datos
 
     # TEST SANTIAGO JIMENEZ
-  
+    def test_actualizar_mascota(self):
+        """Prueba la actualización de una mascota existente"""
+        nueva_data = {'nombre': 'Rex', 'especie': 'Perro', 'raza': 'Pastor Alemán', 'edad':7}
+        response = self.client.put(self.mascota_url, nueva_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.mascota.refresh_from_db()  # Actualiza la mascota desde la base de datos
+        self.assertEqual(self.mascota.nombre, 'Rex')
+        self.assertEqual(self.mascota.raza, 'Pastor Alemán')
+
+    def test_eliminar_mascota(self):
+        """Prueba la eliminación de una mascota"""
+        response = self.client.delete(self.mascota_url)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(Pet.objects.count(), 0)  # No deberían quedar mascotas en la base de datos
