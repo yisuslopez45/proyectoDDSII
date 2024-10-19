@@ -29,3 +29,8 @@ h1 {
     color: #333;
 }
   
+.box-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
