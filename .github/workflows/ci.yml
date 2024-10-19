@@ -23,6 +23,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y docker-compose
+          
+      - name: Change permissions for wait-for-it.sh
+        run: chmod +x petcareAPI/wait-for-it.sh
 
       - name: Build and run containers
         run: docker-compose up --build
