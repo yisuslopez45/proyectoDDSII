@@ -1,16 +1,17 @@
 # Use an official node runtime as a parent image
-FROM node:latest
+FROM node:20
 
 WORKDIR /app/
 
 # Install dependencies
-COPY package.json /app/
+COPY package.json package-lock.json /app/
 
-RUN npm install
+RUN npm install --include=dev
+RUN npm install bootstrap
 
 # Add rest of the client code
 COPY . /app/
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]

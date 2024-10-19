@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/dashboard.css';
+import './Dashboard.css';
 
 const Dashboard = () => {
     const handleHomeRedirect = () => {

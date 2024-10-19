@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y postgresql-client
 COPY . .
 
 # Asegúrate de que wait-for-it.sh esté en el contenedor
-COPY wait-for-it.sh .
+#COPY wait-for-it.sh .
 
 # Hacer wait-for-it.sh ejecutable
 RUN chmod +x wait-for-it.sh
