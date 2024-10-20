@@ -33,7 +33,7 @@ jobs:
       - name: Set environment variable for DB_HOST
         run: echo "DB_HOST=localhost" >> $GITHUB_ENV
 
-      - name:
+      - name: Setting variable DB_HOST
         run: echo "DB_HOST=localhost" >> $GITHUB_ENV
 
       - name: Wait for PostgreSQL to be ready
