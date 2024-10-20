@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: mi_postgres
     environment:
+      DB_HOST: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
       POSTGRES_DB: gatitos
