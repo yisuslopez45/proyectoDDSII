@@ -52,5 +52,3 @@ jobs:
       - name: Run React tests
         working-directory: ./petcareCLIENT
         run: npm run test
-
-
