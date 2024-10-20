@@ -32,7 +32,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v2
 
-      - name:
+      - name: Setting variable DB_HOST
         run: echo "DB_HOST=localhost" >> $GITHUB_ENV
 
       - name: Wait for PostgreSQL to be ready
