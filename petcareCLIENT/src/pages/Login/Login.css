@@ -1,16 +1,12 @@
-/* src/pages/Login.css */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-
 body {
-    font-family: 'Roboto', sans-serif; /* Aplica la fuente a todo el cuerpo */
-}
-body{
+    font-family: 'Roboto', sans-serif;
     background: lightgray;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    height: 90vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
 }
 
 .login-container {
@@ -18,52 +14,67 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #9cbfc6; 
-    padding: 60px; 
-    border-radius: 10px; 
+    background-color: #9cbfc6;
+    padding: 40px; /* Ajusta el padding para dar espacio al perrito */
+    border-radius: 10px;
+    position: relative;
+}
+
+.dog-image {
+    width: 150px; /* Tamaño de la imagen */
+    height: 150px; /* Tamaño de la imagen */
+    border-radius: 50%; /* Hace la imagen redonda */
+    margin-bottom: 20px; /* Espacio entre la imagen y el título */
 }
 
 form {
     display: flex;
     flex-direction: column;
-    width: 300px; 
-    
+    width: 300px;
 }
 
 input {
     padding: 8px;
     border-radius: 10px;
-    width: 100%; 
-    border: 1px solid lightgray; 
+    width: 100%;
+    border: 1px solid lightgray;
     outline: none;
+    transition: all 0.3s ease-in-out; /* Transición suave para el campo */
 }
 
 input:focus {
     outline: 3px solid #1f7283;
 }
 
-
 label {
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     padding: 5px;
     border-radius: 10px;
-    font-family: 'Roboto', sans-serif;
 }
 
 button {
-    margin: 5px auto; 
-    padding: 10px 20px; 
+    margin: 5px auto;
+    padding: 10px 20px;
     border-radius: 10px;
-    width: 50%; 
-    justify-content: center; 
-    font-size: 16px; 
-    background-color: #4e97a6; 
-    color: black; 
-    border: none; 
-    cursor: pointer; 
-    font-family: 'Roboto', sans-serif;
+    width: 50%;
+    font-size: 16px;
+    background-color: #4e97a6;
+    color: black;
+    border: none;
+    cursor: pointer;
 }
 
 button:focus {
-    outline: 3px solid #1f7283; 
+    outline: 3px solid #1f7283;
+}
+
+/* Estilo para el checkbox de mostrar/ocultar contraseña */
+.password-toggle {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.password-toggle input {
+    width: auto;
+    margin-right: 5px; /* Ajusta la casilla para mostrar/ocultar */
 }
