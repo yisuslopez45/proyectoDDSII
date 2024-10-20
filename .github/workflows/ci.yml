@@ -24,10 +24,23 @@ jobs:
           POSTGRES_PASSWORD: root
         options: > 
           --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=5
+    
+    env:
+      DB_HOST: postgres  # Cambia esto a 'localhost' si es necesario
 
     steps:
       - name: Check out the repository
         uses: actions/checkout@v2
+
+      - name:
+        run: echo "DB_HOST=localhost" >> $GITHUB_ENV
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h ${{ env.DB_HOST }} -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
 
       # BACK TEST
       - name: Install Django dependencies
