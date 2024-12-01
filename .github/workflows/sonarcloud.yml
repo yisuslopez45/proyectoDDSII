@@ -33,25 +33,36 @@ jobs:
   DemoSonarCloudScan:
     runs-on: ubuntu-latest
 
+
     services:
       postgres:
-        image: postgres:latest
-        env:
-          DB_HOST: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: root
-          POSTGRES_DB: gatitos
+        image: postgres:13
         ports:
           - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=5
-
+        env:
+          POSTGRES_DB: gatitos
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+    
+    env:
+      DB_HOST: postgres  # Cambia esto a 'localhost' si es necesario
 
     steps:
-      # Clona el repositorio
-      - uses: actions/checkout@v3
-        with:
-            fetch-depth: 0
+      - name: Check out the repository
+        uses: actions/checkout@v2
+        
+      - name: Set environment variable for DB_HOST
+        run: echo "DB_HOST=localhost" >> $GITHUB_ENV
+
+      - name: Setting variable DB_HOST
+        run: echo "DB_HOST=localhost" >> $GITHUB_ENV
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h ${{ env.DB_HOST }} -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
 
       # Configura Python
       - name: Set up Python
@@ -65,6 +76,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r petcareAPI/requirements.txt
 
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
+          
       # Ejecuta pruebas con cobertura
       - name: Run tests with coverage
         run: |
