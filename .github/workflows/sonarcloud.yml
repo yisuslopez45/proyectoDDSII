@@ -1,117 +1,79 @@
-name: SonarCloud analysis
+
+name: "sonar_cloud_scan_github_actions"
 
 on:
   push:
     branches: [ "main", "jesus_sonarqube" ]
-  pull_request:
-    branches: [ "main" ]
-
-permissions:
-  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
+  workflow_dispatch:
 
 jobs:
-  Analysis:
+  DemoSonarCloudScan:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Analyze with SonarCloud
 
-        # You can pin the exact commit or the version.
-        # uses: SonarSource/sonarcloud-github-action@v2.2.0
-        uses: SonarSource/sonarcloud-github-action@4006f663ecaf1f8093e8e4abb9227f6041f52216
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
-        with:
-          # Additional arguments for the SonarScanner CLI
-          args:
-            # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
-            # mandatory
-            -Dsonar.projectKey=yisuslopez45_proyectoDDSII
-            -Dsonar.organization=petcareapi
-            # Comma-separated paths to directories containing main source files.
-            #-Dsonar.sources= # optional, default is project base directory
-            # Comma-separated paths to directories containing test source files.
-            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
-            # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
-            #-Dsonar.verbose= # optional, default is false
-          # When you need the analysis to take place in a directory other than the one from which it was launched, default is .
-          projectBaseDir: .
-
-# name: "sonar_cloud_scan_github_actions"
-
-# on:
-#   push:
-#     branches: [ "main", "jesus_sonarqube" ]
-#   workflow_dispatch:
-
-# jobs:
-#   DemoSonarCloudScan:
-#     runs-on: ubuntu-latest
-
-
-#     services:
-#       postgres:
-#         image: postgres:13
-#         ports:
-#           - 5432:5432
-#         env:
-#           POSTGRES_DB: gatitos
-#           POSTGRES_USER: postgres
-#           POSTGRES_PASSWORD: root
+          POSTGRES_DB: gatitos
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
     
-#     env:
-#       DB_HOST: postgres  # Cambia esto a 'localhost' si es necesario
+    env:
+      DB_HOST: postgres  # Cambia esto a 'localhost' si es necesario
 
-#     steps:
-#       - name: Check out the repository
-#         uses: actions/checkout@v2
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
         
-#       - name: Set environment variable for DB_HOST
-#         run: echo "DB_HOST=localhost" >> $GITHUB_ENV
+      - name: Set environment variable for DB_HOST
+        run: echo "DB_HOST=localhost" >> $GITHUB_ENV
 
-#       - name: Setting variable DB_HOST
-#         run: echo "DB_HOST=localhost" >> $GITHUB_ENV
+      - name: Setting variable DB_HOST
+        run: echo "DB_HOST=localhost" >> $GITHUB_ENV
 
-#       - name: Wait for PostgreSQL to be ready
-#         run: |
-#           until pg_isready -h ${{ env.DB_HOST }} -U postgres; do
-#             echo "Waiting for PostgreSQL..."
-#             sleep 2
-#           done
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h ${{ env.DB_HOST }} -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
 
-#       # Configura Python
-#       - name: Set up Python
-#         uses: actions/setup-python@v4
-#         with:
-#           python-version: "3.10"  # Ajusta según la versión que uses
+      # Configura Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"  # Ajusta según la versión que uses
 
-#       # Instala dependencias
-#       - name: Install dependencies
-#         run: |
-#           python -m pip install --upgrade pip
-#           pip install -r petcareAPI/requirements.txt
+      # Instala dependencias
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r petcareAPI/requirements.txt
 
-#       - name: Wait for PostgreSQL to be ready
-#         run: |
-#           until pg_isready -h localhost -U postgres; do
-#             echo "Waiting for PostgreSQL..."
-#             sleep 2
-#           done
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          until pg_isready -h localhost -U postgres; do
+            echo "Waiting for PostgreSQL..."
+            sleep 2
+          done
 
-#       # Ejecuta pruebas con cobertura
-#       - name: Run tests with coverage
-#         run: |
-#           cd petcareAPI
-#           pytest --cov=core --cov-report=xml test/
+      # Ejecuta pruebas con cobertura
+      - name: Run tests with coverage
+        run: |
+          cd petcareAPI
+          pytest --cov=core --cov-report=xml test/
 
-#       # Ejecuta el análisis de SonarCloud
-#       - name: SonarCloud Scan
-#         uses: sonarsource/sonarcloud-github-action@master
-#         env:
-#             GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-#             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#         with:
-#           args: >
-#               -Dsonar.organization=petcareapi
-#               -Dsonar.projectKey=yisuslopez45_proyectoDDSII
-#               -Dsonar.python.coverage.reportPaths=petcareAPI/coverage.xml
+      # Ejecuta el análisis de SonarCloud
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+            GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+              -Dsonar.organization=petcareapi
+              -Dsonar.projectKey=yisuslopez45_proyectoDDSII
+              -Dsonar.python.coverage.reportPaths=petcareAPI/coverage.xml
