@@ -76,4 +76,4 @@ jobs:
           args: >
               -Dsonar.organization=petcareapi
               -Dsonar.projectKey=yisuslopez45_proyectoDDSII
-              -Dsonar.python.coverage.reportPaths=petcareAPI/coverage.xml
+              -Dsonar.python.coverage.reportPaths=coverage.xml
