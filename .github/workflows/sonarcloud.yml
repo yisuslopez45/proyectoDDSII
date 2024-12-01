@@ -82,12 +82,12 @@ jobs:
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
-          
+
       # Ejecuta pruebas con cobertura
       - name: Run tests with coverage
         run: |
           cd petcareAPI
-          pytest --cov=core --cov-report=xml core/pet/tests.py
+          pytest --cov-report=xml core/pet/tests.py
 
       # Ejecuta el análisis de SonarCloud
       - name: SonarCloud Scan
