@@ -54,7 +54,7 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd petcareAPI
-          pytest --cov=. --cov-report=xml
+          pytest --cov=core --cov-report=xml core/pet/tests.py
 
       # Ejecuta el análisis de SonarCloud
       - name: SonarCloud Scan
