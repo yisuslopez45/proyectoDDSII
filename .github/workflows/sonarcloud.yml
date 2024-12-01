@@ -110,4 +110,4 @@ jobs:
             -Dsonar.test.exclusions=tests/**
             -Dsonar.tests=tests/
             -Dsonar.verbose=true
-        projectBaseDir: petcareAPI
+        # projectBaseDir: petcareAPI
