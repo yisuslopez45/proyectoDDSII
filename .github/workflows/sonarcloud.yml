@@ -53,6 +53,7 @@ jobs:
       # Ejecuta pruebas con cobertura
       - name: Run tests with coverage
         run: |
+          cd petcareAPI
           pytest --cov=. --cov-report=xml
 
       # Ejecuta el análisis de SonarCloud
@@ -65,4 +66,4 @@ jobs:
           args: >
               -Dsonar.organization=petcareapi
               -Dsonar.projectKey=yisuslopez45_proyectoDDSII
-              -Dsonar.python.coverage.reportPaths=coverage.xml
+              -Dsonar.python.coverage.reportPaths=petcareAPI/coverage.xml
