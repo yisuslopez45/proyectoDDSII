@@ -32,6 +32,21 @@ on:
 jobs:
   DemoSonarCloudScan:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          DB_HOST: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+          POSTGRES_DB: gatitos
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres" --health-interval=10s --health-timeout=5s --health-retries=5
+
+
     steps:
       # Clona el repositorio
       - uses: actions/checkout@v3
