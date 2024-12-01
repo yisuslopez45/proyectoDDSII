@@ -63,7 +63,7 @@ jobs:
       # Ejecuta pruebas con cobertura
       - name: Run tests with coverage
         run: |
-          cd /petcareAPI
+          cd petcareAPI
           coverage run manage.py test
           coverage xml
           sed -i "s/<source>.*<\/source>/<source>\/github\/workspace\/app<\/source>/g" coverage.xml
