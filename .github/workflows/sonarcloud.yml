@@ -59,6 +59,10 @@ jobs:
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
+      - name: Debug coverage
+        run: |
+          ls -la /github/workspace
+          cat coverage.xml
 
       # Ejecuta pruebas con cobertura
       - name: Run tests with coverage
@@ -79,5 +83,5 @@ jobs:
           args: >
               -Dsonar.organization=petcareapi
               -Dsonar.projectKey=yisuslopez45_proyectoDDSII
-              -Dsonar.python.coverage.reportPaths=coverage.xml
+              -Dsonar.python.coverage.reportPaths=petcareAPI/coverage.xml
 
