@@ -33,6 +33,7 @@ class MascotaCRUDTests(TestCase):
         self.assertEqual(len(response.data), 1)  # Solo una mascota en la base de datos
 
         
+        
 
     # TEST SANTIAGO JIMENEZ
     def test_actualizar_mascota(self):
