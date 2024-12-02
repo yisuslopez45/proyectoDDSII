@@ -84,6 +84,6 @@ jobs:
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-              -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
-              -Dsonar.projectKey=${{ env.SONAR_KEY }}
+              -Dsonar.organization=petcareapi
+              -Dsonar.projectKey=yisuslopez45_proyectoDDSII
               -Dsonar.python.coverage.reportPaths=coverage.xml
