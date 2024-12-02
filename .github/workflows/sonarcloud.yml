@@ -48,9 +48,6 @@ jobs:
 
       - name: Run tests and generate coverage
         run: |
-          pwd
-          ls -la
-          cd petcareAPI
           coverage run manage.py test
           coverage xml
         working-directory: ./petcareAPI
