@@ -74,7 +74,7 @@ jobs:
       - name: Fix coverage.xml paths
         run: |
           pwd
-          ls -l petcareAPI
+          ls -l
           sed -i 's|/home/runner/work/proyectoDDSII/proyectoDDSII/petcareAPI|/github/workspace/petcareAPI|g' coverage.xml
 
       - name: SonarCloud Scan
