@@ -43,6 +43,7 @@ class MascotaCRUDTests(TestCase):
         self.mascota.refresh_from_db()  # Actualiza la mascota desde la base de datos
         self.assertEqual(self.mascota.nombre, 'Rex')
         self.assertEqual(self.mascota.raza, 'Pastor Alemán')
+        
 
     def test_eliminar_mascota(self):
         """Prueba la eliminación de una mascota"""
